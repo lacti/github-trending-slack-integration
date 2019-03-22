@@ -1,0 +1,16 @@
+{
+  "name": "github-trending-slack-integration",
+  "version": "0.1.0",
+  "description": "Report your favorite GitHub trending into your Slack",
+  "main": "src/report.js",
+  "repository": "https://github.com/lacti/github-trending-slack-integration",
+  "author": "jaeyoung.choi <lactrious@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "deploy:lambda": "SLS_DEPLOY=* sls deploy",
+    "deploy:lambda-function": "SLS_DEPLOY=* sls deploy -f report"
+  },
+  "devDependencies": {
+    "serverless": "^1.39.1"
+  }
+}

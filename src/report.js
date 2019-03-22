@@ -69,28 +69,26 @@ const sendToSlack = async (slackHookUrl, message) => {
   if (sent !== "ok") {
     throw new Error(`Invalid response: ${sent}`);
   }
+  return sent;
 };
-const reportTrending = async (language, period, slackHookUrl) => {
+const report = async (language, period, slackHookUrl) => {
   if (!slackHookUrl) {
     slackHookUrl = process.env["SLACK_HOOK_URL"];
     if (!slackHookUrl) {
       throw new Error("Please set proper SLACK_HOOK_URL to env.");
     }
   }
-  try {
-    await sendToSlack(
-      slackHookUrl,
-      asSlackMessage(language, period, await readTrending(language, period))
-    );
-  } catch (error) {
-    console.log("Something is wrong.");
-    console.error(error);
-  }
+  return sendToSlack(
+    slackHookUrl,
+    asSlackMessage(language, period, await readTrending(language, period))
+  );
 };
-module.exports = reportTrending;
+module.exports = report;
 
 if (require.main === module) {
   const language = process.argv[2] || "golang";
   const period = process.argv[3] || "weekly";
-  reportTrending(language, period);
+  report(language, period)
+    .then(console.log)
+    .catch(error => console.error(`Something is wrong`, error));
 }

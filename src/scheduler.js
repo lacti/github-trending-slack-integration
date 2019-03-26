@@ -39,7 +39,7 @@ const reportByTable = async () => {
   }
   return result;
 };
-module.export = reportByTable;
+module.exports = reportByTable;
 
 if (require.main === module) {
   reportByTable()

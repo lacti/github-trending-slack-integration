@@ -37,7 +37,7 @@ const reportByTable = async () => {
       result[each] = error.message;
     }
   }
-  return result;
+  return { table, result };
 };
 module.exports = reportByTable;
 

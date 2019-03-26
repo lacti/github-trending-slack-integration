@@ -34,7 +34,7 @@ SLACK_HOOK_URL="https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXX
 
 ### AWS Lambda
 
-If you don't think about a machine to run this script as a cron job, you can choose the AWS Lambda. It can run a lambda function periodically with CloudWatch's scheduler tick. I set to launch this function at every 9AM into `functions.report.events.schedule` at `serverless.yml`.
+If you don't think about a machine to run this script as a cron job, you can choose the AWS Lambda. It can run a lambda function periodically with CloudWatch's scheduler tick. I set to launch this function at every 10AM (KST) into `functions.report.events.schedule` at `serverless.yml`.
 
 You can deploy this into your lambda with your `AWS_PROFILE` environment variable by [`serverless`](https://serverless.com/).
 

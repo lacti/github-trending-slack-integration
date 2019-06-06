@@ -5,6 +5,9 @@ provider:
   runtime: nodejs8.10
   stage: production
   region: ap-northeast-2
+  environment:
+    SLACK_HOOK_URL: ${env:SLACK_HOOK_URL}
+    SCHEDULE: ${env:SCHEDULE}
 
 package:
   exclude:
@@ -14,14 +17,19 @@ package:
 
 functions:
   report:
-    handler: src/lambda.handler
+    handler: src/lambda.handlerReport
     timeout: 30
     memorySize: 128
     events:
       - http:
           path: /{language}/{period}
           method: post
+  reportToday:
+    handler: src/lambda.handlerReportToday
+    timeout: 30
+    memorySize: 128
+    events:
+      - http:
+          path: /
+          method: post
       - schedule: cron(0 1 * * ? *)
-    environment:
-      SLACK_HOOK_URL: ${env:SLACK_HOOK_URL}
-      SCHEDULE: ${env:SCHEDULE}

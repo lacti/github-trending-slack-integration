@@ -1,24 +1,17 @@
 const report = require("./report");
 
-const defaultTable = {
-  // 0: ['c++ weekly'],
-  1: ["python weekly"],
-  2: ["golang weekly"],
-  3: ["dart weekly"],
-  4: ["typescript weekly"],
-  5: ["javascript weekly"]
-  // 6: ['rust weekly'],
-};
 const table = (() => {
   const scheduleInEnv = process.env["SCHEDULE"];
-  if (scheduleInEnv) {
-    try {
-      return JSON.parse(scheduleInEnv);
-    } catch (error) {
-      console.error(`Invalid Schedule env`, scheduleInEnv, error);
-    }
+  if (!scheduleInEnv) {
+    console.error(`There is no SCHEDULE env.`, scheduleInEnv);
+    throw new Error("Please set SCHEDULE env.");
   }
-  return defaultTable;
+  try {
+    return JSON.parse(scheduleInEnv);
+  } catch (error) {
+    console.error(`Invalid Schedule env`, scheduleInEnv, error);
+    throw error;
+  }
 })();
 
 const reportByTable = async () => {

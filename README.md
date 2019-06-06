@@ -14,13 +14,13 @@ If you can use [`envrc`](https://direnv.net/), please check an example file: `.e
 
 ## Schedule
 
-Fix a `defaultTable` in `scheduler.js` or set a `SCHEDULE` to env with this expression.
+Add a new `schedule.json` file copied from `schedule.example.json` file to set that to `SCHEDULE` environment variable.
 
 ```json
 {"dayOfWeek":["language period", ...], ...}
 ```
 
-For example, you can set like this if you want to receive the `c++ weekly` trend in every monday.
+`dayOfWeek` is a number and it is from 0 to 6 in order, Sunday, Monday, Tuesday, Wednesday, Thursday, Friday and Saturday. For example, you can set like this if you want to receive the `c++ weekly` trend in every Monday.
 
 ```json
 { "1": ["c++ weekly"] }
@@ -34,20 +34,26 @@ SLACK_HOOK_URL="https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXX
 
 ### AWS Lambda
 
-If you don't think about a machine to run this script as a cron job, you can choose the AWS Lambda. It can run a lambda function periodically with CloudWatch's scheduler tick. I set to launch this function at every 10AM (KST) into `functions.report.events.schedule` at `serverless.yml`.
+If you don't think about a machine to run this script as a cron job, you can choose the AWS Lambda. It can run a lambda function periodically with CloudWatch's scheduler tick. I set to launch this function at every 10AM (KST) into `functions.reportToday.events.schedule` at `serverless.yml`.
 
 You can deploy this into your lambda with your `AWS_PROFILE` environment variable by [`serverless`](https://serverless.com/).
 
 1. Check your AWS credentials, for example, `AWS_PROFILE` env.
 2. Install `serverless` with `yarn` command.
-3. Check your `SLACK_HOOK_URL` and `SCHEDULE` environment variables with referencing a `.envrc.example` file.
+3. Check your `SLACK_HOOK_URL` and `SCHEDULE` environment variables with referencing `.envrc.example` file and `schedule.example.json` file.
 4. Check the cron expression in `serverless.yml` file.
-5. `yarn deploy:lambda` to deploy.
+5. `yarn deploy` to deploy.
 
 It contains an API Gateway endpoint to call it manually, so you use `curl` to test it.
 
 ```bash
 curl -XPOST "https://YOUR-APIID.execute-api.AWS-REGION.amazonaws.com/production/LANGUAGE/PERIOD"
+```
+
+Or, you can call all of languages in the schedule using this endpoint.
+
+```bash
+curl -XPOST "https://YOUR-APIID.execute-api.AWS-REGION.amazonaws.com/production/"
 ```
 
 ## Thanks to

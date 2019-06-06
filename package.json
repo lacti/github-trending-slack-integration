@@ -7,10 +7,9 @@
   "author": "jaeyoung.choi <lactrious@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "deploy:lambda": "SLS_DEPLOY=* sls deploy",
-    "deploy:lambda-function": "SLS_DEPLOY=* sls deploy -f report"
+    "deploy": "SLS_DEPLOY=* sls deploy"
   },
   "devDependencies": {
-    "serverless": "^1.39.1"
+    "serverless": "^1.44.1"
   }
 }

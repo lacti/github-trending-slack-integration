@@ -1,4 +1,5 @@
 {
+  "*": ["c++ weekly"],
   "1": ["python weekly"],
   "2": ["golang weekly"],
   "3": ["dart weekly"],

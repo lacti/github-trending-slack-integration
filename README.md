@@ -26,6 +26,12 @@ Add a new `schedule.json` file copied from `schedule.example.json` file to set t
 { "1": ["c++ weekly"] }
 ```
 
+Of course, you can use `*` of `dayOfWeek` to schedule something for all days.
+
+```json
+{ "*": ["golang weekly"] }
+```
+
 And then run a `scheduler.js` script with `SLACK_HOOK_URL`.
 
 ```bash

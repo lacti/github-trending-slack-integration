@@ -15,7 +15,7 @@ const table = (() => {
 })();
 
 const reportByTable = async () => {
-  const today = [...(table["*"] || []), ...table[new Date().getDay()]];
+  const today = [...(table["*"] || []), ...(table[new Date().getDay()] || [])];
   if (!today) {
     return {};
   }

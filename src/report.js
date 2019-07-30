@@ -7,7 +7,9 @@ const readTrending = (language, period) =>
   new Promise((resolve, reject) =>
     https
       .get(
-        `https://github-trending-api.now.sh/repositories?language=${language}&since=${period}`,
+        `https://github-trending-api.now.sh/repositories?language=${encodeURIComponent(
+          language
+        )}&since=${period}`,
         response => {
           let data = "";
           response.on("data", chunk => {

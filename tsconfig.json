@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "lib": ["es2017"],
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "strictFunctionTypes": true,
+    "suppressImplicitAnyIndexErrors": false,
+    "strictPropertyInitialization": true,
+    "target": "es2017",
+    "outDir": "lib"
+  },
+  "exclude": ["node_modules"]
+}
+ 

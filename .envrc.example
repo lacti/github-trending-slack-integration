@@ -3,9 +3,7 @@
 # If you want to deploy it as production stage,
 # export STAGE="production"
 
-# If you want to write a schedule table directly,
-# export SCHEDULE='{"0":["c++ weekly"],"1":["python weekly"],"2":["golang weekly"],"3":["dart weekly"],"4":["typescript weekly"],"5":["javascript weekly"]}'
-# Or you can use "schedule.json" instead.
+# You can load scheduling entries from the outer file such as "scheduler.json"
 # export SCHEDULE="$(cat schedule.json)"
 
 # And please write your own slack hook url.

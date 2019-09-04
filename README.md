@@ -1,11 +1,11 @@
-# GitHub trending to Slack
+# GitHub trending over Slack
 
 Send the GitHub trending of your favorite languages into your Slack channel!
 
 ## Quick start
 
 ```bash
-SLACK_HOOK_URL="https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX" node report.js javascript today
+SLACK_HOOK_URL="https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX" yarn ts-node src/report.ts javascript today
 ```
 
 You should install [Incoming Webhooks](https://api.slack.com/incoming-webhooks) first to get a slack hook url.
@@ -17,19 +17,19 @@ If you can use [`envrc`](https://direnv.net/), please check an example file: `.e
 Add a new `schedule.json` file copied from `schedule.example.json` file to set that to `SCHEDULE` environment variable.
 
 ```json
-{"dayOfWeek":["language period", ...], ...}
+{ "dayOfWeek": [{ "language": "language", "period": "period" }] }
 ```
 
-`dayOfWeek` is a number and it is from 0 to 6 in order, Sunday, Monday, Tuesday, Wednesday, Thursday, Friday and Saturday. For example, you can set like this if you want to receive the `c++ weekly` trend in every Monday.
+`dayOfWeek` is a string and it is one of `mon`, `tue`, `wed`, `thu`, `fri`, `sat` and `sun`. For example, you can set like this if you want to receive the `c++ weekly` trend in every Monday.
 
 ```json
-{ "1": ["c++ weekly"] }
+{ "mon": [{ "language": "c++", "period": "weekly" }] }
 ```
 
-Of course, you can use `*` of `dayOfWeek` to schedule something for all days.
+Of course, you can use `all` of `dayOfWeek` to schedule something for all days.
 
 ```json
-{ "*": ["golang weekly"] }
+{ "all": [{ "language": "golang", "period": "weekly" }] }
 ```
 
 And then run a `scheduler.js` script with `SLACK_HOOK_URL`.
@@ -61,7 +61,3 @@ Or, you can call all of languages in the schedule using this endpoint.
 ```bash
 curl -XPOST "https://YOUR-APIID.execute-api.AWS-REGION.amazonaws.com/production/"
 ```
-
-## Thanks to
-
-- [github-trending-api](https://github.com/huchenme/github-trending-api)

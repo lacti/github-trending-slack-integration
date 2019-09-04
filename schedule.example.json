@@ -1,8 +1,8 @@
 {
-  "*": ["c++ weekly"],
-  "1": ["python weekly"],
-  "2": ["golang weekly"],
-  "3": ["dart weekly"],
-  "4": ["typescript weekly"],
-  "5": ["javascript weekly"]
+  "all": [{ "language": "c++", "period": "weekly" }],
+  "mon": [{ "language": "python", "period": "weekly" }],
+  "tue": [{ "language": "golang", "period": "weekly" }],
+  "wed": [{ "language": "dart", "period": "weekly" }],
+  "thu": [{ "language": "typescript", "period": "weekly" }],
+  "fri": [{ "language": "javascript", "period": "weekly" }]
 }

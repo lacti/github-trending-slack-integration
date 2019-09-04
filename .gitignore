@@ -1,6 +1,14 @@
-.serverless/
-node_modules/
+# package directories
+node_modules
+jspm_packages
 
+# Serverless directories
+.serverless
+
+# Webpack directories
+.webpack
+
+# Environment variable
 .envrc
 schedule.json
-*.swp
+

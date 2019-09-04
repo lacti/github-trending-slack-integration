@@ -1,15 +1,31 @@
 {
-  "name": "github-trending-slack-integration",
+  "name": "github-trending-reporter",
   "version": "0.1.0",
   "description": "Report your favorite GitHub trending into your Slack",
-  "main": "src/report.js",
-  "repository": "https://github.com/lacti/github-trending-slack-integration",
-  "author": "jaeyoung.choi <lactrious@gmail.com>",
-  "license": "MIT",
+  "main": "src/report.ts",
   "scripts": {
-    "deploy": "SLS_DEPLOY=* sls deploy"
+    "build": "sls package",
+    "deploy": "sls deploy"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.0",
+    "node-html-parser": "^1.1.16",
+    "source-map-support": "^0.5.10"
   },
   "devDependencies": {
-    "serverless": "^1.44.1"
-  }
+    "@types/aws-lambda": "^8.10.31",
+    "@types/node": "10",
+    "@types/node-fetch": "^2.5.0",
+    "prettier": "^1.18.2",
+    "serverless": "^1.51.0",
+    "serverless-webpack": "^5.3.1",
+    "ts-loader": "^6.0.4",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.19.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.6.2",
+    "webpack": "^4.39.3"
+  },
+  "author": "jaeyoung.choi <lactrious@gmail.com>",
+  "license": "MIT"
 }

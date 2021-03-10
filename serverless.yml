@@ -17,7 +17,7 @@ provider:
 
 functions:
   report:
-    handler: src/lambda.handlerReport
+    handler: src/lambda.handleReport
     timeout: 30
     memorySize: 128
     events:
@@ -25,7 +25,7 @@ functions:
           path: /{language}/{period}
           method: post
   reportToday:
-    handler: src/lambda.handlerReportToday
+    handler: src/lambda.handleReportToday
     timeout: 30
     memorySize: 128
     events:

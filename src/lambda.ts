@@ -1,8 +1,11 @@
-import { APIGatewayProxyHandler } from "aws-lambda";
-import report from "./report";
-import scheduler from "./scheduler";
+import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
 
-export const handlerReport: APIGatewayProxyHandler = async event => {
+import report from "./report";
+import reportByTable from "./reportByTable";
+
+export async function handleReport(
+  event: APIGatewayProxyEventV2
+): Promise<APIGatewayProxyResultV2> {
   try {
     console.log(`Maybe call manually from API Gateway`);
     const { language = "", period = "" } = event.pathParameters || {};
@@ -11,7 +14,7 @@ export const handlerReport: APIGatewayProxyHandler = async event => {
     }
     const result = await report({
       language,
-      period
+      period,
     });
     console.log(`result`, result);
     return { statusCode: 200, body: JSON.stringify(result) };
@@ -19,16 +22,16 @@ export const handlerReport: APIGatewayProxyHandler = async event => {
     console.error(error);
     return { statusCode: 500, body: error.message };
   }
-};
+}
 
-export const handlerReportToday = async () => {
+export async function handleReportToday(): Promise<APIGatewayProxyResultV2> {
   try {
     console.log(`Maybe call from Scheduler tick`);
-    const result = await scheduler();
+    const result = await reportByTable();
     console.log(`result`, result);
     return { statusCode: 200, body: JSON.stringify(result) };
   } catch (error) {
     console.error(error);
     return { statusCode: 500, body: error.message };
   }
-};
+}

@@ -1,4 +1,4 @@
-export default interface TrendingParameters {
+export default interface TrendingParameter {
   language?: string;
   period?: string;
 }

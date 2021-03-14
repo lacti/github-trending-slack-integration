@@ -1,8 +1,26 @@
 {
-  "all": [{ "language": "c++", "period": "weekly" }],
-  "mon": [{ "language": "python", "period": "weekly" }],
-  "tue": [{ "language": "golang", "period": "weekly" }],
-  "wed": [{ "language": "dart", "period": "weekly" }],
-  "thu": [{ "language": "typescript", "period": "weekly" }],
-  "fri": [{ "language": "javascript", "period": "weekly" }]
+  "all": {
+    "trendings": [{ "language": "c++", "period": "weekly" }],
+    "owners": ["microsoft"]
+  },
+  "mon": {
+    "trendings": [{ "language": "python", "period": "weekly" }],
+    "owners": ["google"]
+  },
+  "tue": {
+    "trendings": [{ "language": "golang", "period": "weekly" }],
+    "owners": ["facebook"]
+  },
+  "wed": {
+    "trendings": [{ "language": "dart", "period": "weekly" }],
+    "owners": ["aws"]
+  },
+  "thu": {
+    "trendings": [{ "language": "typescript", "period": "weekly" }],
+    "owners": ["netflix"]
+  },
+  "fri": {
+    "trendings": [{ "language": "javascript", "period": "weekly" }],
+    "owners": ["cloudflare"]
+  }
 }

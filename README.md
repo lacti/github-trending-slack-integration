@@ -17,19 +17,34 @@ If you can use [`envrc`](https://direnv.net/), please check an example file: `.e
 Add a new `schedule.json` file copied from `schedule.example.json` file to set that to `SCHEDULE` environment variable.
 
 ```json
-{ "dayOfWeek": [{ "language": "language", "period": "period" }] }
+{
+  "dayOfWeek": {
+    "trendings": [{ "language": "language", "period": "period" }],
+    "owners": ["owner-name"]
+  }
+}
 ```
 
-`dayOfWeek` is a string and it is one of `mon`, `tue`, `wed`, `thu`, `fri`, `sat` and `sun`. For example, you can set like this if you want to receive the `c++ weekly` trend in every Monday.
+`dayOfWeek` is a string and it is one of `mon`, `tue`, `wed`, `thu`, `fri`, `sat` and `sun`. For example, you can set like this if you want to receive the `c++ weekly` trend and `Microsoft`'s repositories that have changed over the past day in every Monday.
 
 ```json
-{ "mon": [{ "language": "c++", "period": "weekly" }] }
+{
+  "mon": {
+    "trendings": [{ "language": "c++", "period": "weekly" }],
+    "owners": ["microsoft"]
+  }
+}
 ```
 
 Of course, you can use `all` of `dayOfWeek` to schedule something for all days.
 
 ```json
-{ "all": [{ "language": "golang", "period": "weekly" }] }
+{
+  "all": {
+    "trendings": [{ "language": "golang", "period": "weekly" }],
+    "owners": ["google"]
+  }
+}
 ```
 
 And then run a `scheduler.js` script with `SLACK_HOOK_URL`.
@@ -46,17 +61,18 @@ You can deploy this into your lambda with your `AWS_PROFILE` environment variabl
 
 1. Check your AWS credentials, for example, `AWS_PROFILE` env.
 2. Install `serverless` with `yarn` command.
-3. Check your `SLACK_HOOK_URL` and `SCHEDULE` environment variables with referencing `.envrc.example` file and `schedule.example.json` file.
+3. Check your `SLACK_HOOK_URL`, `SLACK_TRENDING_CHANNEL`, `SLACK_OWNER_CHANNEL` and `SCHEDULE` environment variables with referencing `.envrc.example` file and `schedule.example.json` file.
 4. Check the cron expression in `serverless.yml` file.
 5. `yarn deploy` to deploy.
 
 It contains an API Gateway endpoint to call it manually, so you use `curl` to test it.
 
 ```bash
-curl -XPOST "https://YOUR-APIID.execute-api.AWS-REGION.amazonaws.com/production/LANGUAGE/PERIOD"
+curl -XPOST "https://YOUR-APIID.execute-api.AWS-REGION.amazonaws.com/production/trending/LANGUAGE/PERIOD"
+curl -XPOST "https://YOUR-APIID.execute-api.AWS-REGION.amazonaws.com/production/owner/LANGUAGE/PERIOD"
 ```
 
-Or, you can call all of languages in the schedule using this endpoint.
+Or, you can call all things in the schedule using this endpoint.
 
 ```bash
 curl -XPOST "https://YOUR-APIID.execute-api.AWS-REGION.amazonaws.com/production/"

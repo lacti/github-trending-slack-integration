@@ -1,8 +1,8 @@
 import Days from "./Days";
-import TrendingParameters from "./TrendingParameters";
+import ScheduleEntry from "./ScheduleEntry";
 
 type Schedule = {
-  [K in keyof typeof Days]?: TrendingParameters[];
+  [K in keyof typeof Days]?: ScheduleEntry;
 };
 
 export default Schedule;

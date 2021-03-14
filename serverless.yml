@@ -2,6 +2,12 @@ service: github-trending-reporter
 
 plugins:
   - serverless-webpack
+  - serverless-prune-plugin
+
+custom:
+  prune:
+    automatic: true
+    number: 7
 
 provider:
   name: aws
@@ -9,27 +15,31 @@ provider:
   stage: production
   region: ap-northeast-2
   lambdaHashingVersion: 20201221
+  timeout: 28
+  memorySize: 256
   apiGateway:
     shouldStartNameWithService: true
   environment:
     SLACK_HOOK_URL: ${env:SLACK_HOOK_URL}
+    SLACK_TRENDING_CHANNEL: ${env:SLACK_TRENDING_CHANNEL}
+    SLACK_OWNER_CHANNEL: ${env:SLACK_OWNER_CHANNEL}
     SCHEDULE: ${env:SCHEDULE}
 
 functions:
-  report:
-    handler: src/lambda.handleReport
-    timeout: 30
-    memorySize: 128
+  reportTrending:
+    handler: src/lambda.handleReportTrending
     events:
-      - http:
-          path: /{language}/{period}
-          method: post
-  reportToday:
-    handler: src/lambda.handleReportToday
-    timeout: 30
-    memorySize: 128
+      - httpApi: POST /trending/{language}/{period}
+  reportOwner:
+    handler: src/lambda.handleReportOwner
     events:
-      - http:
-          path: /
-          method: post
+      - httpApi: POST /owner/{owner}
+  reportByScheduler:
+    handler: src/lambda.handleScheduler
+    events:
+      - httpApi: POST /
+  onSchedule:
+    handler: src/lambda.handleScheduler
+    timeout: 60
+    events:
       - schedule: cron(0 1 * * ? *)

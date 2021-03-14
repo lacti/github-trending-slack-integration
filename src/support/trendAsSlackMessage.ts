@@ -1,7 +1,7 @@
 import Repository from "../models/Repository";
 import capitalize from "./capitalize";
 
-export default function asSlackMessage(
+export default function trendAsSlackMessage(
   language: string,
   period: string,
   repositories: Repository[]

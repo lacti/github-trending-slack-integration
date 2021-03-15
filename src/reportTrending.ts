@@ -7,7 +7,7 @@ export default async function reportTrending(
   params: TrendingParameter,
   {
     slackHookUrl = process.env.SLACK_HOOK_URL!,
-    slackChannel = process.env.SLACK_OWNER_CHANNEL!,
+    slackChannel = process.env.SLACK_TRENDING_CHANNEL!,
   }: { slackHookUrl?: string; slackChannel?: string } = {}
 ): Promise<void> {
   if (!slackHookUrl) {

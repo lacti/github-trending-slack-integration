@@ -3,6 +3,8 @@ import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
 import reportBySchedule from "./reportBySchedule";
 import reportOwner from "./reportOwner";
 import reportTrending from "./reportTrending";
+import slackOwnerConnect from "./env/slackOwnerConnect";
+import slackTrendingConnect from "./env/slackTrendingConnect";
 
 async function handleBase<R>(
   delegate: () => Promise<R>
@@ -23,10 +25,13 @@ export async function handleReportTrending(
   const { language = "", period = "" } = event.pathParameters ?? {};
   console.info({ language, period }, `Start to report trending`);
   return await handleBase(() =>
-    reportTrending({
-      language,
-      period,
-    })
+    reportTrending(
+      {
+        language,
+        period,
+      },
+      slackTrendingConnect
+    )
   );
 }
 
@@ -36,9 +41,12 @@ export async function handleReportOwner(
   const { owner = "" } = event.pathParameters ?? {};
   console.info({ owner }, `Start to report owner`);
   return await handleBase(() =>
-    reportOwner({
-      owner,
-    })
+    reportOwner(
+      {
+        owner,
+      },
+      slackOwnerConnect
+    )
   );
 }
 

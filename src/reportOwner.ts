@@ -1,18 +1,14 @@
 import OwnerParameter from "./models/OwnerParameter";
+import SlackConnect from "./models/SlackConnect";
 import readOwner from "./readOwner";
 import repoAsSlackMessage from "./support/repoAsSlackMessage";
 import sendToSlack from "./support/sendToSlack";
+import slackOwnerConnect from "./env/slackOwnerConnect";
 
 export default async function reportOwner(
   params: OwnerParameter,
-  {
-    slackHookUrl = process.env.SLACK_HOOK_URL!,
-    slackChannel = process.env.SLACK_OWNER_CHANNEL!,
-  }: { slackHookUrl?: string; slackChannel?: string } = {}
+  slackConnect: SlackConnect
 ): Promise<void> {
-  if (!slackHookUrl) {
-    throw new Error(`Please set proper "SLACK_HOOK_URL" to env.`);
-  }
   if (!params.owner) {
     throw new Error(`Please set "owner" parameter`);
   }
@@ -21,11 +17,7 @@ export default async function reportOwner(
     if (repos.length === 0) {
       return;
     }
-    await sendToSlack(
-      slackHookUrl,
-      slackChannel,
-      repoAsSlackMessage(params.owner, repos)
-    );
+    await sendToSlack(slackConnect, repoAsSlackMessage(params.owner, repos));
     console.info({ params }, "Send owner report");
   } catch (error) {
     console.error({ error, params }, "Cannot report owner");
@@ -34,5 +26,5 @@ export default async function reportOwner(
 
 if (require.main === module) {
   const owner = process.argv[2];
-  reportOwner({ owner }).then(console.info);
+  reportOwner({ owner }, slackOwnerConnect).then(console.info);
 }

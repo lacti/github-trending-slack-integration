@@ -1,26 +1,21 @@
+import SlackConnect from "./models/SlackConnect";
 import TrendingParameter from "./models/TrendingParameters";
 import readTrending from "./readTrending";
 import sendToSlack from "./support/sendToSlack";
+import slackTrendingConnect from "./env/slackTrendingConnect";
 import trendAsSlackMessage from "./support/trendAsSlackMessage";
 
 export default async function reportTrending(
   params: TrendingParameter,
-  {
-    slackHookUrl = process.env.SLACK_HOOK_URL!,
-    slackChannel = process.env.SLACK_TRENDING_CHANNEL!,
-  }: { slackHookUrl?: string; slackChannel?: string } = {}
+  slackConnect: SlackConnect
 ): Promise<void> {
-  if (!slackHookUrl) {
-    throw new Error(`Please set proper "SLACK_HOOK_URL" to env.`);
-  }
   try {
     const trendings = await readTrending(params);
     if (trendings.length === 0) {
       return;
     }
     await sendToSlack(
-      slackHookUrl,
-      slackChannel,
+      slackConnect,
       trendAsSlackMessage(
         params.language || "any",
         params.period || "any",
@@ -36,5 +31,5 @@ export default async function reportTrending(
 if (require.main === module) {
   const language = process.argv[2];
   const period = process.argv[3];
-  reportTrending({ language, period }).then(console.info);
+  reportTrending({ language, period }, slackTrendingConnect).then(console.info);
 }

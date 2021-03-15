@@ -1,11 +1,22 @@
+import SlackConnect from "../models/SlackConnect";
 import fetch from "node-fetch";
-import trendAsSlackMessage from "./trendAsSlackMessage";
+
+interface SlackMessage {
+  username?: string;
+  attachments?: {
+    color?: string;
+    text: string;
+  }[];
+  text?: string;
+}
 
 export default async function sendToSlack(
-  slackHookUrl: string,
-  slackChannel: string,
-  message: ReturnType<typeof trendAsSlackMessage>
+  { slackHookUrl, slackChannel }: SlackConnect,
+  message: SlackMessage
 ) {
+  if (!slackHookUrl) {
+    throw new Error(`Please set proper "SLACK_HOOK_URL" to env.`);
+  }
   const sent = await fetch(slackHookUrl, {
     method: "POST",
     headers: {

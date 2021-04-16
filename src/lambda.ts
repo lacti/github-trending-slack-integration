@@ -50,7 +50,12 @@ export async function handleReportOwner(
   );
 }
 
-export async function handleScheduler(): Promise<APIGatewayProxyResultV2> {
+export async function handleSchedulerByApi(): Promise<APIGatewayProxyResultV2> {
   console.info("Start to report by scheduler");
   return await handleBase(() => reportBySchedule());
+}
+
+export async function handleScheduler(): Promise<void> {
+  console.info("Start to report by scheduler");
+  await handleBase(() => reportBySchedule());
 }

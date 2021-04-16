@@ -35,11 +35,11 @@ functions:
     events:
       - httpApi: POST /owner/{owner}
   reportByScheduler:
-    handler: src/lambda.handleScheduler
+    handler: src/lambda.handleSchedulerByApi
     events:
       - httpApi: POST /
   onSchedule:
     handler: src/lambda.handleScheduler
-    timeout: 60
+    timeout: 120
     events:
       - schedule: cron(0 1 * * ? *)

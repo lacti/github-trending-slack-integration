@@ -12,3 +12,4 @@ jspm_packages
 .envrc
 schedule.json
 
+yarn*.log*

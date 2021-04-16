@@ -3,6 +3,7 @@ import TrendingParameter from "./models/TrendingParameters";
 import fetch from "node-fetch";
 import isAny from "./support/isAny";
 import { parse as parseHtml } from "node-html-parser";
+import translateBulk from "./translate/translateBulk";
 
 export default async function readTrending({
   language,
@@ -19,7 +20,7 @@ export default async function readTrending({
     console.info({ trendingUrl }, "Read trendings from GitHub page");
     const response = await fetch(trendingUrl).then((r) => r.text());
     const html = parseHtml(response);
-    return html.querySelectorAll(`.Box-row`).map((article) => {
+    const trendings = html.querySelectorAll(`.Box-row`).map((article) => {
       const a = article.querySelector(`h1 a`);
       const [, author, name] = a.attributes.href.trim().split("/");
       const repoLang = (
@@ -39,6 +40,14 @@ export default async function readTrending({
         description,
       };
     });
+
+    // Experimental: translate zh-CN description to en.
+    await translateBulk({
+      values: trendings,
+      getText: (t) => t.description,
+      setText: (trending, translated) => (trending.description = translated),
+    });
+    return trendings;
   } catch (error) {
     console.error({ trendingUrl, error }, "Cannot fetch from trendingUrl");
     return [];

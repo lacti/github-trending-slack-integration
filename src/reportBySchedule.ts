@@ -8,8 +8,8 @@ import slackOwnerConnect from "./env/slackOwnerConnect";
 import slackTrendingConnect from "./env/slackTrendingConnect";
 
 export default async function reportBySchedule({
-  watchTrending = true,
-  watchOwner = true,
+  watchTrending = false,
+  watchOwner = false,
 }: { watchTrending?: boolean; watchOwner?: boolean } = {}): Promise<void> {
   const paramsFromAll = scheduleTable.all;
   const paramsFromDay = scheduleTable[new Date().getDay()];

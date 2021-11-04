@@ -52,10 +52,24 @@ export async function handleReportOwner(
 
 export async function handleSchedulerByApi(): Promise<APIGatewayProxyResultV2> {
   console.info("Start to report by scheduler");
-  return await handleBase(() => reportBySchedule());
+  return await handleBase(() =>
+    reportBySchedule({ watchOwner: true, watchTrending: true })
+  );
+}
+
+export async function handleOwnerSchedulerByApi(): Promise<APIGatewayProxyResultV2> {
+  console.info("Start to report by scheduler");
+  return await handleBase(() => reportBySchedule({ watchOwner: true }));
+}
+
+export async function handleTrendingSchedulerByApi(): Promise<APIGatewayProxyResultV2> {
+  console.info("Start to report by scheduler");
+  return await handleBase(() => reportBySchedule({ watchTrending: true }));
 }
 
 export async function handleScheduler(): Promise<void> {
   console.info("Start to report by scheduler");
-  await handleBase(() => reportBySchedule());
+  await handleBase(() =>
+    reportBySchedule({ watchOwner: true, watchTrending: true })
+  );
 }

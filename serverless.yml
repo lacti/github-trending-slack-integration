@@ -38,6 +38,14 @@ functions:
     handler: src/lambda.handleSchedulerByApi
     events:
       - httpApi: POST /
+  reportByTrendingScheduler:
+    handler: src/lambda.handleTrendingSchedulerByApi
+    events:
+      - httpApi: POST /trending
+  reportByOwnerScheduler:
+    handler: src/lambda.handleOwnerSchedulerByApi
+    events:
+      - httpApi: POST /owner
   onSchedule:
     handler: src/lambda.handleScheduler
     timeout: 120

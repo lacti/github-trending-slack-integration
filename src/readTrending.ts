@@ -27,9 +27,7 @@ export default async function readTrending({
         article.querySelector(`span[itemprop=programmingLanguage]`)
           ?.innerText ?? "Unknown"
       ).trim();
-      let description = (
-        article.querySelector(`p.color-text-secondary`)?.innerText ?? ""
-      ).trim();
+      let description = (article.querySelector(`p`)?.innerText ?? "").trim();
       if (isAny(language)) {
         description = (`[${repoLang}] ` + description).trim();
       }

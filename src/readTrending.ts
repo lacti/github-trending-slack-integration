@@ -22,7 +22,7 @@ export default async function readTrending({
     const html = parseHtml(response);
     const trendings = html.querySelectorAll(`.Box-row`).map((article) => {
       const a = article.querySelector(`h1 a`);
-      const [, author, name] = a.attributes.href.trim().split("/");
+      const [, author, name] = a!.attributes.href.trim().split("/");
       const repoLang = (
         article.querySelector(`span[itemprop=programmingLanguage]`)
           ?.innerText ?? "Unknown"
@@ -48,7 +48,7 @@ export default async function readTrending({
       setText: (trending, translated) => (trending.description = translated),
     });
     return trendings;
-  } catch (error) {
+  } catch (error: any) {
     console.error({ trendingUrl, error }, "Cannot fetch from trendingUrl");
     return [];
   }

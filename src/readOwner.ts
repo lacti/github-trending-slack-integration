@@ -21,9 +21,9 @@ export default async function readOwner({
   const baselineMillis = new Date().getTime() - 24 * 60 * 60 * 1000;
   try {
     console.info({ repositoriesUrl }, "Read repos via GitHub REST API");
-    const repos: GitHubRepository[] = await fetch(repositoriesUrl).then((r) =>
-      r.json()
-    );
+    const repos = await fetch(repositoriesUrl)
+      .then((r) => r.json())
+      .then((r) => r as GitHubRepository[]);
 
     return repos
       .filter(
@@ -38,7 +38,7 @@ export default async function readOwner({
           repo.description ?? ""
         }`.trim(),
       }));
-  } catch (error) {
+  } catch (error: any) {
     console.error(
       { author, repositoriesUrl },
       "Cannot fetch from repositoriesUrl"

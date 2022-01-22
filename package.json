@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@vitalets/google-translate-api": "^7.0.0",
-    "node-fetch": "2",
+    "node-fetch": "3",
     "node-html-parser": "^5.1.0",
     "source-map-support": "^0.5.20"
   },

@@ -13,15 +13,16 @@ export default async function readTrending({
   if (!isAny(language)) {
     trendingUrl += encodeURIComponent(language!);
   }
+  trendingUrl += "?spoken_language_code=";
   if (!isAny(period)) {
-    trendingUrl += `?since=${period}`;
+    trendingUrl += `&since=${period}`;
   }
   try {
     console.info({ trendingUrl }, "Read trendings from GitHub page");
     const response = await fetch(trendingUrl).then((r) => r.text());
     const html = parseHtml(response);
     const trendings = html.querySelectorAll(`.Box-row`).map((article) => {
-      const a = article.querySelector(`h1 a`);
+      const a = article.querySelector(`h2 a`);
       const [, author, name] = a!.attributes.href.trim().split("/");
       const repoLang = (
         article.querySelector(`span[itemprop=programmingLanguage]`)

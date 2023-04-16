@@ -1,4 +1,4 @@
-import slackEnv from "./slackEnv";
+import slackEnv from "./slackEnv.js";
 
 const slackOwnerConnect = {
   slackHookUrl: slackEnv.slackHookUrl,

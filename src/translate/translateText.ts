@@ -1,5 +1,4 @@
-import hasChinese from "../support/hasChinese";
-import translate from "@vitalets/google-translate-api";
+import { translate } from "@vitalets/google-translate-api";
 
 const context = {
   errorOccurred: 0,
@@ -40,16 +39,4 @@ export default async function translateText(
     context.errorOccurred = now;
     return text;
   }
-}
-
-if (require.main === module) {
-  translateText("Hello, World!", { prefilter: hasChinese })
-    .then(console.info)
-    .catch(console.error);
-  translateText("Hello, 세계!", { prefilter: hasChinese })
-    .then(console.info)
-    .catch(console.error);
-  translateText("Hello, 世界!", { prefilter: hasChinese })
-    .then(console.info)
-    .catch(console.error);
 }

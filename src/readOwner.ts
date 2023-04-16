@@ -1,5 +1,5 @@
-import OwnerParameter from "./models/OwnerParameter";
-import Repository from "./models/Repository";
+import OwnerParameter from "./models/OwnerParameter.js";
+import Repository from "./models/Repository.js";
 import fetch from "node-fetch";
 
 interface GitHubRepository {
@@ -45,11 +45,4 @@ export default async function readOwner({
     );
     return [];
   }
-}
-
-if (require.main === module) {
-  const owner = process.argv[2];
-  readOwner({ owner })
-    .then(console.log)
-    .catch((error) => console.error(`Something is wrong`, error));
 }

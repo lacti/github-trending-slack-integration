@@ -1,9 +1,9 @@
-import Repository from "./models/Repository";
-import TrendingParameter from "./models/TrendingParameters";
+import Repository from "./models/Repository.js";
+import TrendingParameter from "./models/TrendingParameters.js";
 import fetch from "node-fetch";
-import isAny from "./support/isAny";
+import isAny from "./support/isAny.js";
 import { parse as parseHtml } from "node-html-parser";
-import translateBulk from "./translate/translateBulk";
+import translateBulk from "./translate/translateBulk.js";
 
 export default async function readTrending({
   language,
@@ -51,10 +51,4 @@ export default async function readTrending({
     console.error({ trendingUrl, error }, "Cannot fetch from trendingUrl");
     return [];
   }
-}
-
-if (require.main === module) {
-  const language = process.argv[2];
-  const period = process.argv[3];
-  readTrending({ language, period }).then(console.info);
 }

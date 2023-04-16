@@ -1,10 +1,10 @@
 {
   "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.tslint": true
-  },
   "editor.tabSize": 2,
   "files.eol": "\n",
+  "typescript.preferences.importModuleSpecifier": "project-relative",
+  "typescript.preferences.importModuleSpecifierEnding": "js",
+  "jest.autoRun": "off",
   "search.exclude": {
     "**/node_modules": true,
     "**/.serverless": true,

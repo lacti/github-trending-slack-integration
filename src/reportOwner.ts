@@ -1,9 +1,8 @@
-import OwnerParameter from "./models/OwnerParameter";
-import SlackConnect from "./models/SlackConnect";
-import readOwner from "./readOwner";
-import repoAsSlackMessage from "./support/repoAsSlackMessage";
-import sendToSlack from "./support/sendToSlack";
-import slackOwnerConnect from "./env/slackOwnerConnect";
+import OwnerParameter from "./models/OwnerParameter.js";
+import SlackConnect from "./models/SlackConnect.js";
+import readOwner from "./readOwner.js";
+import repoAsSlackMessage from "./support/repoAsSlackMessage.js";
+import sendToSlack from "./support/sendToSlack.js";
 
 export default async function reportOwner(
   params: OwnerParameter,
@@ -22,9 +21,4 @@ export default async function reportOwner(
   } catch (error) {
     console.error({ error, params }, "Cannot report owner");
   }
-}
-
-if (require.main === module) {
-  const owner = process.argv[2];
-  reportOwner({ owner }, slackOwnerConnect).then(console.info);
 }

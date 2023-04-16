@@ -1,4 +1,4 @@
-import SlackConnect from "../models/SlackConnect";
+import SlackConnect from "../models/SlackConnect.js";
 import fetch from "node-fetch";
 
 interface SlackMessage {

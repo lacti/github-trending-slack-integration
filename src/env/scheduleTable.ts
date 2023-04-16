@@ -1,4 +1,4 @@
-import Schedule from "../models/Schedule";
+import Schedule from "../models/Schedule.js";
 
 const scheduleTable: Schedule = (function () {
   const scheduleInEnv = process.env.SCHEDULE;

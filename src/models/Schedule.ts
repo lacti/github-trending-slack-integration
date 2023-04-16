@@ -1,5 +1,5 @@
-import Days from "./Days";
-import ScheduleEntry from "./ScheduleEntry";
+import Days from "./Days.js";
+import ScheduleEntry from "./ScheduleEntry.js";
 
 type Schedule = {
   [K in keyof typeof Days]?: ScheduleEntry;

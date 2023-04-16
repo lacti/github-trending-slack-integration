@@ -1,5 +1,5 @@
-import Repository from "../models/Repository";
-import capitalize from "./capitalize";
+import Repository from "../models/Repository.js";
+import capitalize from "./capitalize.js";
 
 export default function repoAsSlackMessage(
   owner: string,

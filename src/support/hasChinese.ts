@@ -61,9 +61,3 @@ export default function hasChinese(str: string): boolean {
 
   return false;
 }
-
-if (require.main === module) {
-  console.info(hasChinese("Hello, World!"));
-  console.info(hasChinese("Hello, 세계!"));
-  console.info(hasChinese("Hello, 世界!"));
-}

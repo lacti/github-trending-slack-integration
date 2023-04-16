@@ -1,22 +1,27 @@
 service: github-trending-reporter
 
 plugins:
-  - serverless-webpack
+  - serverless-esbuild
   - serverless-prune-plugin
 
 custom:
   prune:
     automatic: true
     number: 7
+  esbuild:
+    bundle: true
+    minify: true
+    packager: "pnpm"
+    watch:
+      pattern: "src/**/*.ts"
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs18.x
   stage: production
   region: ap-northeast-2
-  lambdaHashingVersion: 20201221
   timeout: 28
-  memorySize: 256
+  memorySize: 512
   apiGateway:
     shouldStartNameWithService: true
   environment:

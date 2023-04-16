@@ -1,10 +1,10 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
 
-import reportBySchedule from "./reportBySchedule";
-import reportOwner from "./reportOwner";
-import reportTrending from "./reportTrending";
-import slackOwnerConnect from "./env/slackOwnerConnect";
-import slackTrendingConnect from "./env/slackTrendingConnect";
+import reportBySchedule from "./reportBySchedule.js";
+import reportOwner from "./reportOwner.js";
+import reportTrending from "./reportTrending.js";
+import slackOwnerConnect from "./env/slackOwnerConnect.js";
+import slackTrendingConnect from "./env/slackTrendingConnect.js";
 
 async function handleBase<R>(
   delegate: () => Promise<R>
@@ -53,23 +53,43 @@ export async function handleReportOwner(
 export async function handleSchedulerByApi(): Promise<APIGatewayProxyResultV2> {
   console.info("Start to report by scheduler");
   return await handleBase(() =>
-    reportBySchedule({ watchOwner: true, watchTrending: true })
+    reportBySchedule({
+      watchOwner: true,
+      watchTrending: true,
+      slackConnect: slackTrendingConnect,
+    })
   );
 }
 
 export async function handleOwnerSchedulerByApi(): Promise<APIGatewayProxyResultV2> {
   console.info("Start to report by scheduler");
-  return await handleBase(() => reportBySchedule({ watchOwner: true }));
+  return await handleBase(() =>
+    reportBySchedule({
+      watchOwner: true,
+      watchTrending: false,
+      slackConnect: slackTrendingConnect,
+    })
+  );
 }
 
 export async function handleTrendingSchedulerByApi(): Promise<APIGatewayProxyResultV2> {
   console.info("Start to report by scheduler");
-  return await handleBase(() => reportBySchedule({ watchTrending: true }));
+  return await handleBase(() =>
+    reportBySchedule({
+      watchOwner: false,
+      watchTrending: true,
+      slackConnect: slackTrendingConnect,
+    })
+  );
 }
 
 export async function handleScheduler(): Promise<void> {
   console.info("Start to report by scheduler");
   await handleBase(() =>
-    reportBySchedule({ watchOwner: true, watchTrending: true })
+    reportBySchedule({
+      watchOwner: true,
+      watchTrending: true,
+      slackConnect: slackTrendingConnect,
+    })
   );
 }

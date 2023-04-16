@@ -1,5 +1,5 @@
-import OwnerParameter from "./OwnerParameter";
-import TrendingParameter from "./TrendingParameters";
+import OwnerParameter from "./OwnerParameter.js";
+import TrendingParameter from "./TrendingParameters.js";
 
 export default interface ScheduleEntry {
   owners: OwnerParameter[];

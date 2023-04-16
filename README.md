@@ -5,7 +5,7 @@ Send the GitHub trending of your favorite languages into your Slack channel!
 ## Quick start
 
 ```bash
-SLACK_HOOK_URL="https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX" yarn ts-node src/report.ts javascript today
+SLACK_HOOK_URL="https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX" npx ts-node src/report.ts javascript today
 ```
 
 You should install [Incoming Webhooks](https://api.slack.com/incoming-webhooks) first to get a slack hook url.
@@ -60,10 +60,10 @@ If you don't think about a machine to run this script as a cron job, you can cho
 You can deploy this into your lambda with your `AWS_PROFILE` environment variable by [`serverless`](https://serverless.com/).
 
 1. Check your AWS credentials, for example, `AWS_PROFILE` env.
-2. Install `serverless` with `yarn` command.
+2. Install `serverless` with `npm` command.
 3. Check your `SLACK_HOOK_URL`, `SLACK_TRENDING_CHANNEL`, `SLACK_OWNER_CHANNEL` and `SCHEDULE` environment variables with referencing `.envrc.example` file and `schedule.example.json` file.
 4. Check the cron expression in `serverless.yml` file.
-5. `yarn deploy` to deploy.
+5. `npm run deploy` to deploy.
 
 It contains an API Gateway endpoint to call it manually, so you use `curl` to test it.
 

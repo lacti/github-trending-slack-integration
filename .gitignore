@@ -11,5 +11,3 @@ jspm_packages
 # Environment variable
 .envrc
 schedule.json
-
-yarn*.log*

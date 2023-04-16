@@ -1,21 +1,25 @@
-import SlackConnect from "./models/SlackConnect";
-import mergeUnique from "./support/mergeUnique";
-import reportOwner from "./reportOwner";
-import reportTrending from "./reportTrending";
-import scheduleTable from "./env/scheduleTable";
-import sendToSlack from "./support/sendToSlack";
-import slackOwnerConnect from "./env/slackOwnerConnect";
-import slackTrendingConnect from "./env/slackTrendingConnect";
+import SlackConnect from "./models/SlackConnect.js";
+import mergeUnique from "./support/mergeUnique.js";
+import reportOwner from "./reportOwner.js";
+import reportTrending from "./reportTrending.js";
+import scheduleTable from "./env/scheduleTable.js";
+import sendToSlack from "./support/sendToSlack.js";
+import slackOwnerConnect from "./env/slackOwnerConnect.js";
 
 export default async function reportBySchedule({
-  watchTrending = false,
-  watchOwner = false,
-}: { watchTrending?: boolean; watchOwner?: boolean } = {}): Promise<void> {
+  watchTrending,
+  watchOwner,
+  slackConnect,
+}: {
+  watchTrending: boolean;
+  watchOwner: boolean;
+  slackConnect: SlackConnect;
+}): Promise<void> {
   const paramsFromAll = scheduleTable.all;
   const paramsFromDay = scheduleTable[new Date().getDay()];
   if (watchTrending) {
     await reportDelegate(
-      slackTrendingConnect,
+      slackConnect,
       reportTrending,
       mergeUnique({
         first: paramsFromDay?.trendings,
@@ -50,13 +54,4 @@ async function reportDelegate<T>(
   await sendToSlack(slackConnect, {
     text: "<!channel> OK, now you see me :)",
   });
-}
-
-if (require.main === module) {
-  reportBySchedule({
-    watchTrending: process.argv[2] === "true",
-    watchOwner: process.argv[3] === "true",
-  })
-    .then(console.info)
-    .catch(console.error);
 }
